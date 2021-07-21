@@ -1,0 +1,44 @@
+Pentru implementarea temei Editor Text am folosit:
+  -o lista dublu inlantuita pentru a retine caracterele textului in cate un nod,
+   si a putea naviga cu usurinta printre caractere, lista are head , tail si
+   curr pentru a putea adauga sau scoate noduri din lista in orice moment
+   (curr reprezinta cursorul, nodul urmator fiind tinta multor comenzi).
+  -2 stive alocate dinamic, fiecare avand noduri, in care se salveaza informatii
+   despre comenzile deja procesate, in stiva stack se retin date (precum pozitia
+   si caracterele care se sterg) depre comenzile care au fost date, in stiva
+   stack_undo se afla comenzile la care a fost dat undo si sunt salvate pentru
+   comanda redo, cat timp stack_undo nu este null se poate da redo, altfel
+   stiva se goleste dupa o alta comanda.
+  -lucrul cu fisiere, pentru a deschide si citi din fisierul editor.in si a
+   deschide si scrie in fisierul editor.out.
+  -lucrul cu utilitarul valgrind pentru a verifica memoria programului
+   si a fi sigur ca toata memoria este eliberata sau nu exista alte erori.
+
+In fisierul main.c se afla functia main in care sunt declarate lista si stivele
+dupa este deschis fisierul editor.in si se citeste linie cu linie intr-un while
+pana la final. Se verifica daca pe linia citita se gaseste ::i caz in care
+variabila command se schimba, aceasta comanda este folosita pentru a verifica
+daca urmeaza sa fie citite comenzi sau text.
+Daca urmeaza sa fie citit text se adauga caracter cu caracter la finalul listei
+iar in stiva de comenzi este salvata comanda text si pozitia de unde a inceput
+sa fie scris text.
+Daca urmeaza sa fie citite comenzi se verifica prin cele 13 if-uri ce comanda
+este citita, fiecare comanda apeleaza functia specifica rezolvarii sarcinii,
+spre exemplu sa stearga un caracter, sa mute cursorul, etc, si este adaugata
+in stiva de comenzi.
+La final se elibereaza memoria si se inchide fisierul editor.in.
+
+In fisierul struct.h se afla declararea structurilor si niste functii specifice
+acestora, pentru eliberarea memoriei, pop si push pentru stiva.
+
+In fisierul commands_functions.h se alfa functiile folosite pentru fiecare
+functie, pentru mutarea cursorului, adaugarea de noi caractere, scoaterea
+unui cuvant, unui rand sau inlocuirea unui cuvant cu altul.
+
+In fisierul undo_redo_functions.h se afla fucntiile pentru undo si redo si
+toate functiile folosite de acestea pentru a da undo la o comanda si a o
+salva in stack_undo pentru cazul de redo.
+
+Din acesta tema am deprins aptitudini pentru folosirea eficienta a memoriei
+lucrul cu liste, stive si cozi in limbajul C si folosirea utilitarului
+valgrind.
